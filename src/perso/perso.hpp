@@ -1,13 +1,14 @@
-#include <iostream>
-// #include <SFML/Graphics.hpp>
+#ifndef __perso_HPP__
+#define __perso_HPP__
 
-class perso
+#include "../texturing/texturing.hpp"
+
+class perso : public texturing
 {
     private:
-        std::string p_texture;
-
-
     public:
-        perso(std::string t);
+        perso(std::map<std::string, std::string> setup);
         ~perso();
 };
+
+#endif

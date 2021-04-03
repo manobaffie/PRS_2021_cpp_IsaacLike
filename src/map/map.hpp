@@ -1,15 +1,15 @@
-#include <iostream>
-// #include <SFML/Graphics.hpp>
+#ifndef __map_HPP__
+#define __map_HPP__
 
-class map
+#include "../texturing/texturing.hpp"
+
+class map : public texturing
 {
     private:
-       std::string p_texture;
-
-        // sf::Texture texture;
-        // sf::Sprite sprite;
 
     public:
-        map(std::string t);
+        map(std::map<std::string, std::string> setup);
         ~map();
 };
+
+#endif

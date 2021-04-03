@@ -1,6 +1,6 @@
 #include "perso.hpp"
 
-perso::perso(std::string t) : p_texture(t)
+perso::perso(std::map<std::string, std::string> setup) : texturing(setup)
 {
 }
 

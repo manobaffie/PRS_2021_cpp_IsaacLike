@@ -21,11 +21,12 @@ class sfml : public Igraph
 
         void initWindow() override;
 
-        void setSprite(std::string id, std::string t_path, int x, int y, int inx, int iny) override;
+        void setSprite(std::string id, std::string t_path, std::vector<int> pose, std::vector<int> size) override;
 
         void draw(std::string id) override;
         void display() override;
         bool isOpen() override;
         void clear() override;
+        void setScale(std::string id, std::vector<float> size) override;
 };
 

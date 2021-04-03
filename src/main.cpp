@@ -1,28 +1,21 @@
 #include "core/core.hpp"
-#include "perso/perso.hpp"
-
-
-#include "../lib/LoadLib/LoadLib.hpp"
-#include "../libGraph/Igraph.hpp"
 
 int main()
 {
-    perso p();
 
-    LoadLib<Igraph> Ig("./libGraph/sfml/sfml.so");
+    std::map<std::string, std::map<std::string, std::string>> setup;
 
-    Igraph *graph = Ig.init();
+    setup["conf"].insert(std::make_pair("lib_g", "./libGraph/sfml/sfml.so"));
 
-    graph->setSprite("test", "./sprite/perso/Isaac.png", 10, 25, 28, 25);
+    setup["perso"].insert(std::make_pair("texture", "./sprite/perso/Isaac.png"));
+    setup["perso"].insert(std::make_pair("name", "Isaac_0"));
 
-    while (graph->isOpen())
-    {
+    setup["map"].insert(std::make_pair("texture", "./sprite/map/Cellar.png"));
+    setup["map"].insert(std::make_pair("name", "Cellar_0"));
 
-        graph->clear();
+    core c(setup);
 
-        graph->draw("test");
-        graph->display();
-    }
+    // c.loop_c();
 
     return 0;
 }
