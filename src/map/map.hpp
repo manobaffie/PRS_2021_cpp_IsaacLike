@@ -1,14 +1,14 @@
 #ifndef __map_HPP__
 #define __map_HPP__
 
-#include "../texturing/texturing.hpp"
+#include "../sprite/texturing.hpp"
 
 class map : public texturing
 {
     private:
 
     public:
-        map(std::map<std::string, std::string> setup);
+        map(std::map<std::string, type> c_perso);
         ~map();
 };
 

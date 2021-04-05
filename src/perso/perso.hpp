@@ -1,13 +1,15 @@
 #ifndef __perso_HPP__
 #define __perso_HPP__
 
-#include "../texturing/texturing.hpp"
+#include "../sprite/texturing.hpp"
 
 class perso : public texturing
 {
-    private:
+    protected:
+        std::string id;
+
     public:
-        perso(std::map<std::string, std::string> setup);
+        perso(std::map<std::string, type> c_perso);
         ~perso();
 };
 

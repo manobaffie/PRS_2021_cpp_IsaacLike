@@ -1,6 +1,6 @@
 #include "map.hpp"
 
-map::map(std::map<std::string, std::string> setup) : texturing(setup)
+map::map(std::map<std::string, type> c_perso) : texturing(c_perso["sprite"].m)
 {
 }
 

@@ -8,20 +8,27 @@ sfml::~sfml()
 {
 }
 
-void sfml::initWindow()
+void sfml::setWindow(int fps, std::string title, std::vector<int> size)
 {
+    this->window.setFramerateLimit(fps);
+    this->window.setTitle(title);
+    this->window.setSize({size[0], size[1]});
 }
 
-void sfml::setSprite(std::string id, std::string t_path,  std::vector<int> p, std::vector<int> s)
+void sfml::setTexture(std::string idT, std::string t_path)
 {
-    this->sprites[id].texture.loadFromFile(t_path);
-    this->sprites[id].sprite.setTexture(this->sprites[id].texture);
-    this->sprites[id].sprite.setTextureRect(sf::IntRect(p[0], p[1], s[0], s[1]));
+    this->sprites[idT].texture.loadFromFile(t_path);
 }
 
-void sfml::draw(std::string id)
+void sfml::setSprite(std::string idT, std::string idS, std::vector<int> pose, std::vector<int> size)
 {
-    this->window.draw(this->sprites[id].sprite);
+    this->sprites[idT].sprite[idS].setTexture(this->sprites[idT].texture);
+    this->sprites[idT].sprite[idS].setTextureRect(sf::IntRect(pose[0], pose[1], size[0], size[1]));
+}
+
+void sfml::draw(std::string idT, std::string idS)
+{
+    this->window.draw(this->sprites[idT].sprite[idS]);
 }
 
 void sfml::display()
@@ -39,9 +46,14 @@ void sfml::clear()
     this->window.clear();
 }
 
-void sfml::setScale(std::string id, std::vector<float> size)
+void sfml::setPosition(std::string idT, std::string idS, std::vector<int> pose)
 {
-    this->sprites[id].sprite.setScale(size[0], size[1]);
+    this->sprites[idT].sprite[idS].setPosition(pose[0], pose[1]);
+}
+
+void sfml::setScale(std::string idT, std::string idS, std::vector<float> size)
+{
+    this->sprites[idT].sprite[idS].setScale(size[0], size[1]);
 }
 
 extern "C" {

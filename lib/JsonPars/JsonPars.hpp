@@ -7,10 +7,19 @@
 #include <type_traits>
 #include <any>
 
-struct Obj_s {
-    template <class T>
-    static std::map<std::string, T> map;
+struct type
+{
+    int i;
+    bool b;
+    std::string s;
+    std::map<std::string, type> m;
+
+    std::vector<int> ti;
+    std::vector<bool> tb;
+    std::vector<std::string> ts;
+    std::vector<std::map<std::string, type>> tm;
 };
+
 
 class JsonPars
 {
@@ -18,51 +27,25 @@ class JsonPars
         std::string path;
         std::ifstream file;
 
-        Obj_s mapJ;
-        int indx;
+        std::map<std::string, type> map;
 
-        template <class T>
-        static T temp;
 
     public:
         JsonPars(std::string p);
         ~JsonPars();
 
-        Obj_s parsingJson();
+        std::map<std::string, type> parsingJson();
 
-        // template <typename O, typename... Ts>
-        // std::enable_if_t<sizeof...(Ts) == 0, O> getJson(std::vector<std::string> p) { 
-        //     // return ("ERROR" + p[0]);
-        // };
+        std::map<std::string, type> getJson() {
+            return (this->map);
+        };
 
-        // template <typename O, typename T, typename... Ts>
-        Obj_s getJson(/*std::vector<std::string> p*/) {
+        void printObjs() {
+            for (auto i : this->map) {
+                std::cout << i.first << std::endl;
 
-            // std::cout << this->indx << " " << typeid(T).name() << std::endl;
+                std::cout << i.second.i << std::endl;
 
-            // if (this->indx == 0) {
-            //     temp<T> = Obj_s::map<T>[p[this->indx]];
-            //     // std::cout << " res : " << Obj_s::map<T>[p[this->indx]] << std::endl;
-            // } else {
-            //     // temp<T> = temp<T>.map<T>[p[this->indx]];
-            // }
-
-            // // std::cout << " res : " << Obj_s::map<T>[p[this->indx]] << std::endl;
-            // // std::cout << " res : " << Obj_s::map<T>[p[this->indx]] << std::endl;
-
-            // this->indx++;
-            
-            // this->getJson<Ts...>(p);
-            // if (sizeof...(Ts) == 0) {
-            //     return (temp<O>);
-            // }
-
-            return (this->mapJ);
+            }
         };
 };
-
-template<class T>
-std::map<std::string, T> Obj_s::map;
-
-template<class T>
-T JsonPars::temp;

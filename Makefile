@@ -4,10 +4,11 @@ LIBS		=	-ldl
 
 CXXFLAGS	=	-Wall -Wextra -g3 -std=c++17
 
-SRC			=	src/main.cpp			\
-				src/core/core.cpp		\
-				src/perso/perso.cpp		\
-				src/map/map.cpp			\
+SRC			=	src/main.cpp				\
+				src/core/core.cpp			\
+				src/perso/perso.cpp			\
+				src/map/map.cpp				\
+				lib/JsonPars/JsonPars.cpp
 
 OBJS		=	$(SRC:.cpp=.o)
 

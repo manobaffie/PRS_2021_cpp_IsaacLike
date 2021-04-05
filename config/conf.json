@@ -1,0 +1,73 @@
+{
+    "game" : {
+        "p_lib" : "./libGraph/sfml/sfml.so",
+        "resolution" : [1920, 1080],
+        "name" : "1920, 1080"
+    },
+    "entity" : {
+        "perso" : {
+            "id" : "Isaac",
+            "pose" : [ 50, 50 ],
+            "animation" : {
+                
+            },
+            "sprite" : {
+                "p_texture" : "./sprite/perso/Isaac.png",
+                "scale" : 1,
+                "number" : [2, 2],
+                "switch" : [339, 409],
+                "part" : [
+                    {
+                        "id" : "head",
+                        "scale" : 1,
+                        "number" : [8, 1],
+                        "switch" : [40, 0],
+                        "pose" : [ 10, 25 ],
+                        "size" : [ 28, 25 ]
+                    }, {
+                        "id" : "body_up",
+                        "scale" : 1,
+                        "number" : [10, 1],
+                        "switch" : [32, 0],
+                        "pose" : [ 15, 80 ],
+                        "size" : [ 18, 15 ]
+                    }, {
+                        "id" : "body_right",
+                        "scale" : 1,
+                        "number" : [10, 1],
+                        "switch" : [40, 0],
+                        "pose" : [ 15, 123 ],
+                        "size" : [ 18, 15 ]
+                    }
+                ]
+            }
+        },
+        "map" : {
+            "id" : "Cellar",
+            "pose" : [ 100, 100 ],
+            "sprite" : {
+                "p_texture" : "./sprite/map/Cellar.png",
+                "scale" : 1,
+                "number" : [4, 1],
+                "switch" : [234, 0],
+                "part" : [
+                    {
+                        "id" : "map0",
+                        "scale" : 1,
+                        "number" : [1, 1],
+                        "switch" : [0, 0],
+                        "pose" : [ 0, 0 ],
+                        "size" : [ 234, 156 ]
+                    }, {
+                        "id" : "map1",
+                        "scale" : 1,
+                        "number" : [1, 1],
+                        "switch" : [0, 0],
+                        "pose" : [ 0, 156 ],
+                        "size" : [ 234, 156 ]
+                    }
+                ]
+            }
+        }
+    }
+}

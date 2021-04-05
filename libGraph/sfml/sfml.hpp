@@ -4,7 +4,7 @@
 
 struct s_st {
     sf::Texture texture;
-    sf::Sprite sprite;
+    std::map<std::string, sf::Sprite> sprite;
 };
 
 
@@ -17,16 +17,19 @@ class sfml : public Igraph
 
     public:
         sfml(int x, int y, std::string name);
+        sfml() = default;
         ~sfml() override;
 
-        void initWindow() override;
+        void setWindow(int fps, std::string title, std::vector<int> size) override;
 
-        void setSprite(std::string id, std::string t_path, std::vector<int> pose, std::vector<int> size) override;
+        void setTexture(std::string idT, std::string t_path) override;
+        void setSprite(std::string idT, std::string idS, std::vector<int> pose, std::vector<int> size) override;
 
-        void draw(std::string id) override;
+        void draw(std::string idT, std::string idS) override;
         void display() override;
         bool isOpen() override;
         void clear() override;
-        void setScale(std::string id, std::vector<float> size) override;
+        void setPosition(std::string idT, std::string idS, std::vector<int> pose) override;
+        void setScale(std::string idT, std::string idS, std::vector<float> size) override;
 };
 

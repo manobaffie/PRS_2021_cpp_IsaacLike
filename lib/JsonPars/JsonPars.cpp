@@ -1,9 +1,9 @@
 #include "JsonPars.hpp"
 
-JsonPars::JsonPars(std::string p) : path(p), file(p), indx(0)
+JsonPars::JsonPars(std::string p) : path(p), file(p)
 {
     if (this->file) {
-        this->mapJ = this->parsingJson();
+        this->map = this->parsingJson();
     }
 }
 
@@ -12,12 +12,12 @@ JsonPars::~JsonPars()
     this->file.close();
 }
 
-Obj_s JsonPars::parsingJson()
+std::map<std::string, type> JsonPars::parsingJson()
 {
     bool inStr = false, inVal = false, inTab = false;
     std::string name = "", val = "", valType = "";
 
-    Obj_s Obj;
+    std::map<std::string, type> Obj;
     char i;
 
     while (this->file.get(i)) {
@@ -26,13 +26,13 @@ Obj_s JsonPars::parsingJson()
 
         if (i == ',' || i == '}' || i == ']') {
             if (!inTab) {
-                if (valType == "str") Obj.map<std::string>[name] = val;
-                if (valType == "int") Obj.map<int>[name] = std::stoi(val);
+                if (valType == "str") Obj[name].s = val;
+                if (valType == "int") Obj[name].i = std::stoi(val);
                 name = "";
                 inVal = false;
             } else {
-                if (valType == "str") Obj.map<std::vector<std::string>>[name].push_back(val);
-                if (valType == "int") Obj.map<std::vector<int>>[name].push_back(std::stoi(val));
+                if (valType == "str") Obj[name].ts.push_back(val);
+                if (valType == "int") Obj[name].ti.push_back(std::stoi(val));
             }
 
             if (i == '}') return (Obj);
@@ -46,9 +46,9 @@ Obj_s JsonPars::parsingJson()
             if (i == '[') inTab = true;
 
             if (!inTab) {
-                if (i == '{') Obj.map<Obj_s>[name] = this->parsingJson();
+                if (i == '{') Obj[name].m = this->parsingJson();
             } else {
-                if (i == '{') Obj.map<std::vector<Obj_s>>[name].push_back(this->parsingJson());
+                if (i == '{') Obj[name].tm.push_back(this->parsingJson());
             }
         }
 
