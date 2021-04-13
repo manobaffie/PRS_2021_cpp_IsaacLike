@@ -2,40 +2,94 @@
     "game" : {
         "p_lib" : "./libGraph/sfml/sfml.so",
         "resolution" : [1920, 1080],
-        "name" : "1920, 1080"
+        "name" : "IsaacLike"
     },
     "entity" : {
         "perso" : {
             "id" : "Isaac",
             "pose" : [ 50, 50 ],
             "animation" : {
-                
+                "part" : [
+                    {
+                        "id" : "base",
+                        "keyboard" : "",
+                        "frames" : [
+                            {
+                                "time" : "3",
+                                "id" : "head",
+                                "pose" : [0, 0],
+                                "frame" : [0, 2]
+                            },
+                            {
+
+                                "time" : "1",
+                                "id" : "body_up",
+                                "pose" : [0, 16],
+                                "frame" : [0, 1]
+                            }
+                        ]
+                    }, {
+                        "id" : "down",
+                        "keyboard" : "s",
+                        "frames" : [
+                            {
+                                "time" : "3",
+                                "id" : "head",
+                                "pose" : [0, 0],
+                                "frame" : [0, 2]
+                            },
+                            {
+                                "time" : "0.06",
+                                "id" : "body_up",
+                                "pose" : [0, 16],
+                                "frame" : [0, 10]
+                            }
+                        ]
+                    }, {
+                        "id" : "right",
+                        "keyboard" : "d",
+                        "frames" : [
+                            {
+                                "time" : "3",
+                                "id" : "head",
+                                "pose" : [0, 0],
+                                "frame" : [2, 4]
+                            },
+                            {
+                                "time" : "0.06",
+                                "id" : "body_right",
+                                "pose" : [0, 16],
+                                "frame" : [0, 10]
+                            }
+                        ]
+                    }
+                ]
             },
             "sprite" : {
                 "p_texture" : "./sprite/perso/Isaac.png",
                 "scale" : 1,
-                "number" : [2, 2],
+                "number" : [3, 2],
                 "switch" : [339, 409],
                 "part" : [
                     {
                         "id" : "head",
-                        "scale" : 1,
+                        "scale" : 4,
                         "number" : [8, 1],
                         "switch" : [40, 0],
                         "pose" : [ 10, 25 ],
                         "size" : [ 28, 25 ]
                     }, {
                         "id" : "body_up",
-                        "scale" : 1,
+                        "scale" : 4,
                         "number" : [10, 1],
                         "switch" : [32, 0],
                         "pose" : [ 15, 80 ],
                         "size" : [ 18, 15 ]
                     }, {
                         "id" : "body_right",
-                        "scale" : 1,
+                        "scale" : 4,
                         "number" : [10, 1],
-                        "switch" : [40, 0],
+                        "switch" : [32, 0],
                         "pose" : [ 15, 123 ],
                         "size" : [ 18, 15 ]
                     }

@@ -4,8 +4,6 @@ core::core() : perso(conf::config["entity"].m["perso"].m), map(conf::config["ent
 {
     LoadLib<Igraph> lib(conf::config["game"].m["p_lib"].s);
     this->lib_g = lib.init();
-
-    // this->lib_g->setWindow(30, "IsaacLike", {1920, 1080});
 }
 
 core::~core()
@@ -14,16 +12,50 @@ core::~core()
 
 void core::perso_init()
 {
-    this->lib_g->setTexture(perso::id, perso::p_texture);
+    this->lib_g->setTexture(perso::name, perso::p_texture);
 
-    for (auto i : perso::m_part) {
+    for (auto i : perso::m_Tpart) {
         for (auto j : i.second.poses) {
-            this->lib_g->setSprite(perso::id, j.first, j.second, i.second.size);
+            this->lib_g->setSprite(perso::name, j.first, j.second, i.second.size);
+            this->lib_g->setScale(perso::name, j.first, {float(i.second.scale), float(i.second.scale)});
         }
     }
+}
 
-    this->v_disp["0"] = {perso::id, "head_0", {10, 10}};
-    this->v_disp["1"] = {perso::id, "body_up_0", {10, 40}};
+void core::start_animation(std::map<std::string, a_data> &frames, std::vector<int> coord, std::string idT)
+{
+    for (auto &i : frames) {
+        if (this->lib_g->getClock(i.first) == -1) {
+            this->lib_g->startClock(i.first);
+            std::string id = i.second.m_frame.begin()->first;
+            this->v_disp[id].id_texture = idT;
+            this->v_disp[id].id_sprite = id;
+            this->v_disp[id].pose = {
+                coord[0] + (perso::m_Tpart[i.first].scale * i.second.m_frame[id][0]),
+                coord[1] + (perso::m_Tpart[i.first].scale * i.second.m_frame[id][1])
+            };
+        }
+    }
+    for (auto &i : frames) {
+        if (this->lib_g->getClock(i.first) > i.second.time) {
+            std::string id = std::next(i.second.m_frame.begin(), i.second.nb_frame)->first;
+            if (this->v_disp.find(id) != this->v_disp.end()) {
+                this->v_disp.erase(id);
+            }
+            i.second.nb_frame++;
+            if (i.second.nb_frame >= int(i.second.m_frame.size())) {
+                i.second.nb_frame = 0;
+            }
+            id = std::next(i.second.m_frame.begin(), i.second.nb_frame)->first;
+            this->v_disp[id].id_texture = idT;
+            this->v_disp[id].id_sprite = id;
+            this->v_disp[id].pose = {
+                coord[0] + (perso::m_Tpart[i.first].scale * i.second.m_frame[id][0]), // segfault here
+                coord[1] + (perso::m_Tpart[i.first].scale * i.second.m_frame[id][1])
+            };
+            this->lib_g->restartClock(i.first);
+        }
+    }
 }
 
 void core::disp_s()
@@ -39,6 +71,11 @@ void core::loop_c()
     while (this->lib_g->isOpen())
     {
         this->lib_g->clear();
+        this->lib_g->getKey();
+
+        this->start_animation(perso::m_Apart["down"].frames, {800, 500}, perso::name);
+        this->start_animation(perso::m_Apart["right"].frames, perso::coord, perso::name);
+
         this->disp_s();
         this->lib_g->display();
     }

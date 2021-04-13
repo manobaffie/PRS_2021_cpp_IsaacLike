@@ -28,6 +28,8 @@ class core : public perso, public map
 
         void perso_init();
         void map_init();
+
+        void start_animation(std::map<std::string, a_data> &frames, std::vector<int> coord, std::string idT);
         void disp_s();
         void loop_c();
 };

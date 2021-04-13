@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "../Igraph.hpp"
 
@@ -14,6 +15,7 @@ class sfml : public Igraph
         sf::RenderWindow window;
 
         std::map<std::string, s_st> sprites;
+        std::map<std::string, sf::Clock> clock;
 
     public:
         sfml(int x, int y, std::string name);
@@ -24,6 +26,10 @@ class sfml : public Igraph
 
         void setTexture(std::string idT, std::string t_path) override;
         void setSprite(std::string idT, std::string idS, std::vector<int> pose, std::vector<int> size) override;
+        
+        void startClock(std::string id) override;
+        void restartClock(std::string id) override;
+        float getClock(std::string id) override;
 
         void draw(std::string idT, std::string idS) override;
         void display() override;
@@ -31,5 +37,7 @@ class sfml : public Igraph
         void clear() override;
         void setPosition(std::string idT, std::string idS, std::vector<int> pose) override;
         void setScale(std::string idT, std::string idS, std::vector<float> size) override;
+
+        void getKey() override;
 };
 
