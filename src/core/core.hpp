@@ -2,6 +2,7 @@
 #define __core_HPP__
 
 #include <iostream>
+#include <algorithm>
 
 #include "../../lib/LoadLib/LoadLib.hpp"
 #include "../../libGraph/Igraph.hpp"

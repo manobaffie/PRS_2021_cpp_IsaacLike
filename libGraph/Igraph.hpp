@@ -23,6 +23,6 @@ class Igraph
         virtual void setPosition(std::string idT, std::string idS, std::vector<int> pose) = 0;
         virtual void setScale(std::string idT, std::string idS, std::vector<float> size) = 0;
 
-         virtual void getKey() = 0;
+         virtual std::vector<int> getKey() = 0;
 
 };

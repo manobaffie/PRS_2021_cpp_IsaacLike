@@ -60,7 +60,7 @@ void core::start_animation(std::map<std::string, a_data> &frames, std::vector<in
 
 void core::disp_s()
 {
-    for (auto i : this->v_disp) {
+    for (auto &i : this->v_disp) {
         this->lib_g->setPosition(i.second.id_texture, i.second.id_sprite, i.second.pose);
         this->lib_g->draw(i.second.id_texture, i.second.id_sprite);
     }
@@ -71,10 +71,16 @@ void core::loop_c()
     while (this->lib_g->isOpen())
     {
         this->lib_g->clear();
-        this->lib_g->getKey();
 
-        this->start_animation(perso::m_Apart["down"].frames, {800, 500}, perso::name);
-        this->start_animation(perso::m_Apart["right"].frames, perso::coord, perso::name);
+        auto k = this->lib_g->getKey();
+
+        if (std::find(k.begin(), k.end(), 's' - 'a') != k.end()) {
+            this->start_animation(perso::m_Apart["down"].frames, perso::coord, perso::name);
+        } else if (std::find(k.begin(), k.end(), 'd' - 'a') != k.end()) {
+            this->start_animation(perso::m_Apart["right"].frames, perso::coord, perso::name);
+        } else {
+            this->start_animation(perso::m_Apart["base"].frames, perso::coord, perso::name);
+        }
 
         this->disp_s();
         this->lib_g->display();

@@ -31,7 +31,7 @@ void sfml::setSprite(std::string idT, std::string idS, std::vector<int> pose, st
 
 void sfml::startClock(std::string id)
 {
-    std::cout << "[clock start] : " << id << std::endl;
+    // std::cout << "[clock start] : " << id << std::endl;
 
     sf::Clock c;
     this->clock[id] = c;
@@ -82,21 +82,17 @@ void sfml::setScale(std::string idT, std::string idS, std::vector<float> size)
     this->sprites[idT].sprite[idS].setScale(size[0], size[1]);
 }
 
-void sfml::getKey()
+std::vector<int> sfml::getKey()
 {
-    sf::Event event;
-
-    while (this->window.pollEvent(event)) {
-        if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Escape) {
-                std::cout << "the escape key was pressed" << std::endl;
-                std::cout << "control:" << event.key.control << std::endl;
-                std::cout << "alt:" << event.key.alt << std::endl;
-                std::cout << "shift:" << event.key.shift << std::endl;
-                std::cout << "system:" << event.key.system << std::endl;
-            }
+    while (this->window.pollEvent(this->event)) {
+        if (this->event.type == sf::Event::KeyPressed && 
+        !(std::find(this->key.begin(), this->key.end(), this->event.key.code) != this->key.end())) {
+            this->key.push_back(this->event.key.code);
+        } else if (this->event.type == sf::Event::KeyReleased) {
+            this->key.erase(std::find(this->key.begin(), this->key.end(), this->event.key.code));
         }
-    }    
+    }
+    return (this->key);
 }
 
 extern "C" {

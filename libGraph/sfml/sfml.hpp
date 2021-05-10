@@ -13,7 +13,9 @@ class sfml : public Igraph
 {
     private:
         sf::RenderWindow window;
-
+        sf::Event event;
+        
+        std::vector<int> key;
         std::map<std::string, s_st> sprites;
         std::map<std::string, sf::Clock> clock;
 
@@ -38,6 +40,6 @@ class sfml : public Igraph
         void setPosition(std::string idT, std::string idS, std::vector<int> pose) override;
         void setScale(std::string idT, std::string idS, std::vector<float> size) override;
 
-        void getKey() override;
+        std::vector<int> getKey() override;
 };
 
